@@ -25,6 +25,11 @@ int main(int argc, char *argv[])
         return FAIL;
     }
 
+    if (strcmp(argv[1], "requests.txt")) {
+        printf("Error opening file: %s\n",argv[1]);
+        return FAIL;
+    }
+
     if ((pf = fopen(argv[1], "r")) == NULL)
         return FAIL;
 
