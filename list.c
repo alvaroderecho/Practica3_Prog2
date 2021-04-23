@@ -28,7 +28,7 @@ NodeList *node_new()
 }
 List *list_new()
 {
-    List *pl;
+    List *pl = NULL;
 
     pl = (List *)malloc(sizeof(List));
 
@@ -54,7 +54,7 @@ Bool list_isEmpty(const List *pl)
 Status list_pushFront(List *pl, void *e)
 {
 
-    NodeList *pn;
+    NodeList *pn = NULL;
 
     if (pl == NULL || e == NULL)
         return ERROR;
@@ -67,19 +67,19 @@ Status list_pushFront(List *pl, void *e)
     pn->data = e;
     if (list_isEmpty(pl) == TRUE)
     {
-        pn->next = pn;
+        pn->next = (struct _NodeList *)pn;
         pl->last = pn;
     }
     else
     {
         pn->next = pl->last->next;
-        pl->last->next = pn;
+        pl->last->next = (struct _NodeList *)pn;
     }
     return OK;
 }
 Status list_pushBack(List *pl, void *e)
 {
-    NodeList *pn;
+    NodeList *pn = NULL;
 
     if (pl == NULL || e == NULL)
         return ERROR;
@@ -92,21 +92,18 @@ Status list_pushBack(List *pl, void *e)
     pn->data = e;
     if (list_isEmpty(pl) == TRUE)
     {
-        pn->next = pn;
+        pn->next = (struct _NodeList *)pn;
         pl->last = pn;
     }
     else
     {
         pn->next = pl->last->next;
-        pl->last->next = pn;
+        pl->last->next = (struct _NodeList *)pn;
         pl->last = pn;
     }
     return OK;
 }
-Status list_pushInOrder(List *pl, void *e, P_ele_cmp f, int order)
-{
 
-}
 void *list_popFront(List *pl)
 {
     NodeList *pn = NULL;
@@ -115,9 +112,9 @@ void *list_popFront(List *pl)
     {
         return NULL;
     }
-    pn = pl->last->next;
+    pn = (NodeList *)pl->last->next;
     pe = pn->data;
-    if (pl->last->next == pl->last)
+    if (pl->last->next == (struct _NodeList *)pl->last)
     {
         pl->last = NULL;
     }
@@ -136,17 +133,17 @@ void *list_popBack(List *pl)
     {
         return NULL;
     }
-    if (pl->last->next == pl->last)
+    if (pl->last->next == (struct _NodeList *)pl->last)
     {
         pe = pl->last->data;
         free(pl->last);
         pl->last = NULL;
         return pe;
     }
-    pn = pl->last;
-    while (pn->next != pl->last)
+    pn = (NodeList *)pl->last;
+    while (pn->next != (struct _NodeList *)pl->last)
     {
-        pn = pn->next;
+        pn = (NodeList *)pn->next;
     }
     pe = pl->last->data;
     pn->next = pl->last->next;
@@ -159,8 +156,8 @@ void list_free(List *pl){
     free(pl);
 }
 size_t list_size(const List *pl){
-
+return 0;
 }
 int list_print(FILE *fp, const List *pl, P_ele_print f){
-
+return 0;
 }
