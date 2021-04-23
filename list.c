@@ -156,7 +156,22 @@ void list_free(List *pl){
     free(pl);
 }
 size_t list_size(const List *pl){
-return 0;
+    
+    NodeList *pn = NULL;
+    size_t size = 0;
+
+    pn = pl->last->next;
+    if (pl == NULL ) return -1;
+    if (list_isEmpty(pl) == TRUE) return size;
+    else {
+    while (pn != pl->last){
+        pn = pn->next;
+        size ++;
+    }
+    size ++;
+    }
+
+return size;
 }
 int list_print(FILE *fp, const List *pl, P_ele_print f){
 return 0;
