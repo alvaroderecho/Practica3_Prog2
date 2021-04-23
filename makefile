@@ -31,6 +31,12 @@ p3_e2b: p3_e2b.o vertex.o queue.o libdelivery.a
 p3_e2b.o: p3_e2b.c types.h vertex.h product.h delivery.h queue.h
 	$(CC) $(CFLAGS) -c $<
 
+p3_e3: p3_e3.o vertex.o list.o
+	$(CC) $(CFLAGS) -o $@ $< vertex.o list.o
+
+p3_e3.o: p3_e3.c vertex.h types.h list.h
+	$(CC) $(CFLAGS) -c $<
+
 queue.o: queue.c types.h queue.h
 	$(CC) $(CFLAGS) -c $<
 
@@ -45,4 +51,4 @@ list.o: list.c list.h types.h
 
 clean:
 	@echo "Cleaning: "
-	rm -rf *.o p3_e1a p3_e1b p3_e2a p3_e2b list_test
+	rm -rf *.o p3_e1a p3_e1b p3_e2a p3_e2b p3_e3 list_test
