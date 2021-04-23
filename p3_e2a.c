@@ -4,7 +4,6 @@
 #include "delivery.h"
 #include "product.h"
 #include "types.h"
-#include "queue.h"
 
 #define FAIL 1
 #define WORD_LENGHT 64

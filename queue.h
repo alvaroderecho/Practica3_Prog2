@@ -108,4 +108,7 @@ size_t queue_size(const Queue *q);
  *  */
 int queue_print(FILE *fp, const Queue *q, p_queue_ele_print f);
 
+
+Bool queue_isFull (const Queue *q);
+
 #endif	/* QUEUE_H */

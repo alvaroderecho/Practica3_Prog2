@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     Delivery *delv;
     FILE *pf;
     int i;
-    Queue * qu;
+    Queue *qu;
     size_t size;
 
     if (argc != 2)
@@ -44,7 +44,8 @@ int main(int argc, char *argv[])
     }
     qu = delivery_getPlan(delv);
     size = queue_size(qu);
-    for (i=0;i<size;i++) {
+    for (i = 0; i < size; i++)
+    {
         product_free(queue_pop(qu));
     }
 
@@ -68,10 +69,12 @@ Status delivery_add(Delivery *d, Product *p)
 Status delivery_run_plan(FILE *pf, Delivery *d)
 {
     size_t size;
-    int i;
+    int i, flag, amm, capacity, rest;
     Delivery *delv;
     Queue *cola;
     const Vertex *ver;
+    Product *pro;
+    Bool state = TRUE;
 
     if (!d)
         return ERROR;
@@ -83,11 +86,34 @@ Status delivery_run_plan(FILE *pf, Delivery *d)
         return ERROR;
     size = queue_size(cola);
 
-    for (i = 0; i < size; i++)
+    capacity = delivery_getCapacity(d);
+    for (i = 0, flag = 0, rest = 0; i < size; i++)
     {
-        ver = product_getVertex(queue_pop(cola));
-        fprintf(pf, "Delivering %s requested by %s to %s.\n", delivery_getProductName(d), delivery_getName(d), vertex_getTag(ver));
-        
+        pro = queue_pop(cola);
+        ver = product_getVertex(pro);
+        amm = product_getAmount(pro);
+
+        flag += amm;
+
+        if (flag <= capacity)
+        {
+            fprintf(pf, "Delivering %s requested by %s to %s: wanted %d\n", delivery_getProductName(d), delivery_getName(d), vertex_getTag(ver), amm);
+        }
+        else
+        {
+            if (state == TRUE)
+            {
+                rest = amm - (flag - capacity);
+
+                fprintf(pf, "Delivering %s requested by %s to %s: less than requested, wanted %d, obtained %d\n", delivery_getProductName(d), delivery_getName(d), vertex_getTag(ver), amm, rest);
+                state = FALSE;
+            }
+
+            else
+            {
+                fprintf(pf, "Not delivering %s requested by %s to %s: wanted %d, max capacity %d\n", delivery_getProductName(d), delivery_getName(d), vertex_getTag(ver), amm, capacity);
+            }
+        }
     }
 
     delivery_free(delv);
