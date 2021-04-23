@@ -35,7 +35,8 @@ List *list_new()
     if (pl == NULL)
         return NULL;
 
-    pl->last = NULL;
+    
+    pl->last = node_new();
 
     return pl;
 }
@@ -153,15 +154,18 @@ void *list_popBack(List *pl)
 }
 void list_free(List *pl){
     if (pl == NULL) return;
+    free(pl->last);
     free(pl);
 }
+
+
 size_t list_size(const List *pl){
     
     NodeList *pn = NULL;
     size_t size = 0;
+    if (pl == NULL ) return -1;
 
     pn = (NodeList *)pl->last->next;
-    if (pl == NULL ) return -1;
     if (list_isEmpty(pl) == TRUE) return size;
     else {
     while (pn != pl->last){

@@ -34,6 +34,15 @@ p3_e2b.o: p3_e2b.c types.h vertex.h product.h delivery.h queue.h
 queue.o: queue.c types.h queue.h
 	$(CC) $(CFLAGS) -c $<
 
+list_test: list_test.o list.o
+	$(CC) $(CFLAGS) -o $@ $< list.o
+
+list_test.o: list_test.c list_test.h list.h test.h
+	$(CC) $(CFALGS) -c $<
+
+list.o: list.c list.h types.h
+	$(CC) $(CFLAGS) -c $<
+
 clean:
 	@echo "Cleaning: "
-	rm -rf *.o p3_e1a p3_e1b p3_e2a p3_e2b
+	rm -rf *.o p3_e1a p3_e1b p3_e2a p3_e2b list_test
