@@ -160,12 +160,12 @@ size_t list_size(const List *pl){
     NodeList *pn = NULL;
     size_t size = 0;
 
-    pn = pl->last->next;
+    pn = (NodeList *)pl->last->next;
     if (pl == NULL ) return -1;
     if (list_isEmpty(pl) == TRUE) return size;
     else {
     while (pn != pl->last){
-        pn = pn->next;
+        pn = (NodeList *)pn->next;
         size ++;
     }
     size ++;
@@ -174,5 +174,19 @@ size_t list_size(const List *pl){
 return size;
 }
 int list_print(FILE *fp, const List *pl, P_ele_print f){
-return 0;
+
+NodeList *pn = NULL;
+
+int sum = 0;
+pn = (NodeList *)pl->last->next;
+if (!fp || !pl || !f) return 0;
+
+while (pn != pl->last) {
+
+    sum += f(fp,pn->data);
+    pn = (NodeList *)pn->next;
+}
+    sum += f(fp,pl->last->data);
+
+return sum;
 }

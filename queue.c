@@ -119,7 +119,7 @@ int queue_print(FILE *fp, const Queue *q, p_queue_ele_print f) {
     
 
     for (i = 0; i< MAX_QUEUE; i++) {
-        f(q->data[i],fp);
+        f(fp,q->data[i]);
     }
 
 
