@@ -64,10 +64,12 @@ void test2_list_isEmpty() {
 void test3_list_isEmpty() {
   List *pl = list_new();
   int i = 0;
-  void *e = &i;
+  void *e;
+  e=&i;  
   list_pushFront(pl,e);
   PRINT_TEST_RESULT(list_isEmpty(pl) == FALSE);
   list_free(pl);
+
 }
 
 void test1_pushFront () {
@@ -84,7 +86,6 @@ void test2_pushFront () {
   int i = 0;
   void *e = &i;
     PRINT_TEST_RESULT(list_pushFront(pl,e) == ERROR);  
-      list_free(pl);
 
   }
 
@@ -102,14 +103,12 @@ void test2_pushBack () {
   int i = 0;
   void *e = &i;
     PRINT_TEST_RESULT(list_pushBack(pl,e) == ERROR);  
-      list_free(pl);
 
   }
 
 void test1_popFront() {
   List *pl = NULL;
   PRINT_TEST_RESULT(list_popFront(pl) == NULL);
-    list_free(pl);
 
 }
 
@@ -126,7 +125,6 @@ void test2_popFront() {
 void test1_popBack() {
   List *pl = NULL;
   PRINT_TEST_RESULT(list_popBack(pl) == NULL);
-    list_free(pl);
 
 }
 

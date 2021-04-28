@@ -36,7 +36,7 @@ List *list_new()
         return NULL;
 
     
-    pl->last = node_new();
+    pl->last = NULL;
 
     return pl;
 }
@@ -46,7 +46,7 @@ Bool list_isEmpty(const List *pl)
     if (pl == NULL)
         return TRUE;
 
-    if (pl->last->next == NULL)
+    if (pl->last == NULL)
         return TRUE;
 
     return FALSE;
@@ -65,7 +65,7 @@ Status list_pushFront(List *pl, void *e)
     if (pn == NULL)
         return ERROR;
 
-    pn->data = e;
+    pn->data = (void *)e;
     if (list_isEmpty(pl) == TRUE)
     {
         pn->next = (struct _NodeList *)pn;
@@ -154,8 +154,14 @@ void *list_popBack(List *pl)
 }
 void list_free(List *pl){
     if (pl == NULL) return;
-    free(pl->last);
+
+    while (list_isEmpty(pl) == FALSE) {
+       
+        list_popFront(pl);
+    }
+    
     free(pl);
+    return;
 }
 
 
