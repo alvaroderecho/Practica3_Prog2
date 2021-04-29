@@ -1,0 +1,22 @@
+1. Recorriendo el grafo con una cola
+
+        Al recorrer el grafo con una cola en vez de con una pila, la salida del programa 
+    realizado en la practica anterior será la misma pero la función implementada recorrerá el 
+    grafo en sentido contrario al que lo hace con la pila.
+
+
+2. Ampliando el TAD Graph
+
+        Sí se podría almacenar los vértices en una lista en vez de en un array pero sería menos 
+    eficiente por que aumentaría mucho la complejidad, ya que para sacar el vertex que queramos 
+    tendremos que ir sacando los elementos de la lista y comparar por ejemplo sus ids para sacar
+    el que nos interesa. En cambio, con el array es mucho mas cómodo, ya que solo hay que hacer 
+    un bucle.
+
+        No se podría plantear la matriz de adyacencia, porque un vertice puede 
+    estar conectado con varios vértices a la vez y utilizando una lista un vértice solo podría 
+    estar conectado con el siguiente.
+
+        Al igual que con las listas, con las colas se podría implementar sin perder 
+    funcionalidad, pero perdiendo mucha eficiencia.
+
